@@ -1,0 +1,55 @@
+# pwa.mobi Registry Submission Template
+# Copy this file to apps/your-app-name.yaml and fill in all fields
+# Read SUBMISSION_GUIDE.md before submitting
+# Remove all comments before submitting your PR
+
+# ─── App Identity ────────────────────────────────────────────────────────────
+
+name: Your App Name                          # Display name (required)
+tagline: One line that explains your app     # Max 80 characters (required)
+category: productivity                       # See category list in SUBMISSION_GUIDE.md (required)
+
+url: https://yourapp.com                     # Live URL of your PWA (required)
+manifest_url: https://yourapp.com/manifest.json  # Full URL to manifest.json (required)
+
+# ─── Developer ───────────────────────────────────────────────────────────────
+
+developer:
+  name: Your Name or Company                 # Public display name (required)
+  github: your-github-username               # GitHub username (required)
+  email: you@yourapp.com                     # Not public - for registry contact only (optional)
+  website: https://yourwebsite.com           # Optional
+
+# ─── Listing ─────────────────────────────────────────────────────────────────
+
+listing:
+  description: |
+    Write a clear, honest description of your PWA here.
+    What does it do? Who is it for? What makes it useful?
+    Minimum 50 characters, maximum 500 characters.
+    No marketing fluff - just what it actually does.
+
+  icon_url: https://yourapp.com/icons/icon-512.png  # 512x512px PNG (required)
+
+  screenshots:                               # Optional - up to 5 URLs
+    - https://yourapp.com/screenshots/screen1.png
+    - https://yourapp.com/screenshots/screen2.png
+
+  tags:                                      # Optional - up to 8 lowercase tags
+    - productivity
+    - offline
+    - free-tier
+
+# ─── Monetization ────────────────────────────────────────────────────────────
+
+payment_model: freemium                      # free | freemium | paid | open-source (required)
+pricing_url: https://yourapp.com/pricing     # Optional - link to pricing page
+
+# ─── Open Source ─────────────────────────────────────────────────────────────
+
+open_source_url:                             # Optional - GitHub/GitLab URL if open source
+
+# ─── Submission ──────────────────────────────────────────────────────────────
+
+submitted_by: your-github-username           # Must match your GitHub username (required)
+submission_date: 2026-03-23                  # Today's date in YYYY-MM-DD format (required)

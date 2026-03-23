@@ -1,0 +1,39 @@
+name: Build Registry Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/**.yaml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and Publish Registry
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build registry index
+        run: npm run build-index
+
+      - name: Commit and push registry.json
+        run: |
+          git config --local user.email "bot@pwa.mobi"
+          git config --local user.name "pwa.mobi Registry Bot"
+          git add registry.json
+          git diff --staged --quiet || git commit -m "chore: rebuild registry index [skip ci]"
+          git push

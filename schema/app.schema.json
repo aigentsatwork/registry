@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PWA Registry Entry",
+  "description": "Schema for a PWA listed in the pwa.mobi registry",
+  "type": "object",
+  "required": [
+    "name",
+    "tagline",
+    "category",
+    "url",
+    "manifest_url",
+    "developer",
+    "listing",
+    "payment_model",
+    "submitted_by",
+    "submission_date"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 60,
+      "description": "Display name of the PWA"
+    },
+    "tagline": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 80,
+      "description": "Short one-line description"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "productivity", "communication", "finance", "health",
+        "education", "entertainment", "utilities", "developer-tools",
+        "social", "news", "travel", "food",
+        "shopping", "lifestyle", "creativity", "business",
+        "games", "sports", "weather", "other"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Must be HTTPS"
+    },
+    "manifest_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Full URL to manifest.json"
+    },
+    "developer": {
+      "type": "object",
+      "required": ["name", "github"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 2, "maxLength": 80 },
+        "github": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$",
+          "description": "GitHub username"
+        },
+        "email": { "type": "string", "format": "email" },
+        "website": { "type": "string", "format": "uri" }
+      }
+    },
+    "listing": {
+      "type": "object",
+      "required": ["description", "icon_url"],
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 50,
+          "maxLength": 500
+        },
+        "icon_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "screenshots": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "maxLength": 30
+          }
+        }
+      }
+    },
+    "payment_model": {
+      "type": "string",
+      "enum": ["free", "freemium", "paid", "open-source"]
+    },
+    "pricing_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "open_source_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "submitted_by": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]([a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$"
+    },
+    "submission_date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+name: PWA Registry Audit
+
+on:
+  pull_request:
+    paths:
+      - 'apps/**.yaml'
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    name: Audit PWA Submission
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    outputs:
+      passed: ${{ steps.run-audit.outputs.passed }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Chrome (for Lighthouse)
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install dependencies
+        run: |
+          npm install js-yaml ajv ajv-formats
+          npm install -g lighthouse
+
+      - name: Run PWA Audit
+        id: run-audit
+        run: node scripts/audit.js ${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SAFE_BROWSING_API_KEY: ${{ secrets.SAFE_BROWSING_API_KEY }}
+
+      - name: Label PR — Audit Passed
+        if: steps.run-audit.outputs.passed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['audit-passed']
+            })
+
+      - name: Label PR — Audit Failed
+        if: steps.run-audit.outputs.passed == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['audit-failed']
+            })
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              name: 'audit-passed'
+            }).catch(() => {})
