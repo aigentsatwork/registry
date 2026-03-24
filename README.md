@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Replace with your actual pwa.mobi logo URL once uploaded to the repo -->
-<img src="https://raw.githubusercontent.com/pwamobi/registry/main/assets/pwamobi-logo.png" alt="pwa.mobi" height="72" />
+<img src="https://raw.githubusercontent.com/pwamobi/registry/main/assets/pwamobi.png" alt="pwa.mobi" height="72" />
 
 <h1>pwa.mobi Registry</h1>
 
@@ -132,7 +132,7 @@ registry/
 │   ├── validate-local.js           ← Local pre-check for developers
 │   └── build-index.js              ← Generates registry.json on merge
 ├── assets/
-│   └── pwamobi-logo.png            ← Project logo
+│   └── pwamobi.png            ← Project logo
 ├── registry.json                   ← Auto-generated app index (do not edit)
 └── .github/
     ├── PULL_REQUEST_TEMPLATE.md    ← Checklist shown on every PR
@@ -200,7 +200,7 @@ Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
 
 <br />
 
-<img src="https://raw.githubusercontent.com/pwamobi/registry/main/assets/simpleMindsLogo.png"
+<img src="https://raw.githubusercontent.com/pwamobi/registry/main/assets/smlogo.png"
      alt="Simple Minds" height="32" />
 
 <br /><br />
